@@ -3,6 +3,7 @@ import { Play } from 'phosphor-react';
 import { useForm } from 'react-hook-form';
 import * as zod from 'zod';
 
+import { useRef } from 'react';
 import {
     CountdownContainer,
     FormContainer,
@@ -32,8 +33,13 @@ export function Home() {
         }
     })
 
+    const formRef = useRef<HTMLFormElement | null>(null);
+
     function handleCreateNewCycle(data: NewCycleFormData) {
         console.log(data)
+        if (formRef.current) {
+            formRef.current.reset();
+        }
     }
 
     // console.log(formState.errors)
@@ -43,7 +49,7 @@ export function Home() {
 
   return (
     <HomeContainer>
-      <form onSubmit={handleSubmit(handleCreateNewCycle)} action="">
+      <form ref={formRef} onSubmit={handleSubmit(handleCreateNewCycle)} action="">
         <FormContainer>
           <label htmlFor="task">Vou trabalhar em</label>
           <TaskInput 
