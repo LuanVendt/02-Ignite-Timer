@@ -1,4 +1,4 @@
-import { ReactNode, createContext, useRef, useState } from "react";
+import { ReactNode, createContext, useState } from "react";
 
 
 interface CreateCycleData {
@@ -55,8 +55,6 @@ export function CyclesContextProvider({ children }: CyclesContextProviderProps) 
           });
     }
 
-    const formRef = useRef<HTMLFormElement | null>(null);
-
     function createNewCycle(data: CreateCycleData) {
         const id = String(new Date().getTime())
   
@@ -70,10 +68,6 @@ export function CyclesContextProvider({ children }: CyclesContextProviderProps) 
           setCycles((state) => [...state, newCycle])
           setActiveCycleId(id)
           setAmountSecondsPassed(0);
-  
-          if (formRef.current) {
-              formRef.current.reset();
-          }
       }
   
       function interruptCurrentCycle() {
